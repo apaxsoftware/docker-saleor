@@ -67,5 +67,5 @@ GraphQL, Django, and ReactJS."                                                  
       org.opencontainers.image.licenses="BSD 3"
 
 ENTRYPOINT ["/app/setup_env.sh"]
-CMD ["sh", "-c", "echo test: $DATABASE_URL"]
-# CMD ["gunicorn", "--bind", ":8000", "--workers", "4", "--worker-class", "saleor.asgi.gunicorn_worker.UvicornWorker", "saleor.asgi:application"]
+
+CMD ["gunicorn", "--bind", ":8000", "--workers", "4", "--worker-class", "saleor.asgi.gunicorn_worker.UvicornWorker", "saleor.asgi:application"]
