@@ -18,6 +18,12 @@ FROM python:3.9-slim
 RUN groupadd -r saleor && useradd -r -g saleor saleor
 
 RUN apt-get update \
+  && apt-get install -y curl ca-certificates gnupg \
+  && curl https://www.postgresql.org/media/keys/ACCC4CF8.asc \
+  | gpg --dearmor \
+  | tee /etc/apt/trusted.gpg.d/apt.postgresql.org.gpg >/dev/null \
+  && echo 'deb http://apt.postgresql.org/pub/repos/apt/ bullseye-pgdg main' > /etc/apt/sources.list.d/postgresql.list \
+  && apt-get update \
   && apt-get install -y \
   libcairo2 \
   libgdk-pixbuf2.0-0 \
@@ -32,6 +38,7 @@ RUN apt-get update \
   libpq5 \
   shared-mime-info \
   mime-support \
+  postgresql-client-14 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
